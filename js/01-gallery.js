@@ -30,5 +30,17 @@ const imgElSelected = event.target.classList.contains('gallery__image');
 if (!imgElSelected) {
     return;
 }
-console.log(event.target.getAttribute('data-source'));
-}
+
+const url = event.target.getAttribute('data-source');
+console.log(url);
+
+
+const instance = basicLightbox.create(`
+    <img src="${url}">
+`)
+
+instance.show()
+
+};
+
+
