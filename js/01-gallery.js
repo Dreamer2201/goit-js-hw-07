@@ -35,12 +35,24 @@ const url = event.target.getAttribute('data-source');
 console.log(url);
 
 
-const instance = basicLightbox.create(`
-    <img src="${url}">
-`)
-
+const instance = basicLightbox.create(`<img src="${url}">`);
 instance.show()
 
+window.addEventListener('keydown', onKeyPress);
+function onKeyPress(event) {
+    if (event.key === 'Escape') {
+        instance.close();
+    }
+    return;
 };
+
+};
+
+
+
+
+
+
+
 
 
