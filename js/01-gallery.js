@@ -3,8 +3,6 @@ import { galleryItems } from './gallery-items.js';
 
 const listGallery = document.querySelector('.gallery');
 
-listGallery.insertAdjacentHTML('beforeend', createGallleryMarkup(galleryItems));
-
 function createGallleryMarkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `<div class="gallery__item">
@@ -20,6 +18,8 @@ function createGallleryMarkup(galleryItems) {
     }).join('');
 };
 
+listGallery.insertAdjacentHTML('beforeend', createGallleryMarkup(galleryItems));
+
 listGallery.addEventListener('click', onImgGalleryClick);
 
 function onImgGalleryClick(event) {
@@ -28,19 +28,17 @@ const imgElSelected = event.target.classList.contains('gallery__image');
 
 if (!imgElSelected) {
     return;
-}
-
-const url = event.target.getAttribute('data-source');
-console.log(url);
-
+} 
+const url = event.target.dataset.source;
 
 const instance = basicLightbox.create(`<img src="${url}">`);
-instance.show()
+instance.show(() => window.addEventListener('keydown', onKeyPress));
 
-window.addEventListener('keydown', onKeyPress);
 function onKeyPress(event) {
     if (event.key === 'Escape') {
-        instance.close();
+        instance.close(() => window.removeEventListener('keydown', onKeyPress));
+        console.log(event.key);
+        return;
     }
     return;
 };
