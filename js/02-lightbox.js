@@ -8,7 +8,7 @@ listGallery.insertAdjacentHTML('beforeend', createGallleryMarkup(galleryItems));
 function createGallleryMarkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `<a class="gallery__item" href="${original}">
-        <img class="gallery__image" src="${preview}" alt="${description}" />
+        <img class="gallery__image" src="${preview}" alt="${description}" title ="${description}" />
       </a>`;
     }).join('');
 };
@@ -23,7 +23,19 @@ if(!imgElSelected) {
     return;
 } 
     const parentLink = event.target.closest('.gallery__item');
-    console.log(parentLink);
+    const urlLink = parentLink.getAttribute('href')
+    console.log(urlLink);
+
+
+    const gallery = new SimpleLightbox('.gallery__item');
+
+    gallery.on('show.simplelightbox', function () {
+	gallery.next();
+
+});
+
+
 };
 
 console.log(galleryItems);
+
